@@ -682,7 +682,7 @@ def AddImagesToTargetFiles(filename):
   partitions = dict()
 
   def banner(s):
-    print("\n\n++++ " + s + " ++++\n\n")
+    print("\n---- " + s)
 
   banner("boot")
   # common.GetBootableImage() returns the image directly if present.
@@ -816,7 +816,6 @@ def main(argv):
     sys.exit(1)
 
   AddImagesToTargetFiles(args[0])
-  print("done.")
 
 if __name__ == '__main__':
   try:

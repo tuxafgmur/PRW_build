@@ -359,7 +359,7 @@ function addcompletions()
     dir="sdk/bash_completion"
     if [ -d ${dir} ]; then
         for f in `/bin/ls ${dir}/[a-z]*.bash 2> /dev/null`; do
-            echo "including $f"
+            # echo "including $f"
             . $f
         done
     fi
@@ -577,11 +577,6 @@ function print_lunch_menu()
         i=$(($i+1))
     done | column
 
-    if [ "z${ARROW_DEVICES_ONLY}" != "z" ]; then
-       echo " "
-       echo "... and don't forget the bacon!"
-    fi
-
     echo
 }
 
@@ -606,7 +601,7 @@ function breakfast()
     add_lunch_combo full-eng
     for f in `/bin/ls vendor/arrow/vendorsetup.sh 2> /dev/null`
         do
-            echo "including $f"
+            # echo "including $f"
             . $f
         done
     unset f
@@ -682,28 +677,8 @@ function lunch()
     check_product $product
     if [ $? -ne 0 ]
     then
-        # if we can't find a product, try to grab it off the ArrowGitHub
-        T=$(gettop)
-        cd $T > /dev/null
-        vendor/arrow/build/tools/roomservice.py $product
-        cd - > /dev/null
-        check_product $product
-    else
-        T=$(gettop)
-        cd $T > /dev/null
-        vendor/arrow/build/tools/roomservice.py $product true
-        cd - > /dev/null
-    fi
-
-    TARGET_PRODUCT=$product \
-    TARGET_BUILD_VARIANT=$variant \
-    TARGET_PLATFORM_VERSION=$version \
-    build_build_var_cache
-    if [ $? -ne 0 ]
-    then
         echo
         echo "** Don't have a product spec for: '$product'"
-        echo "** Do you have the right repo manifest?"
         product=
     fi
 
@@ -1665,11 +1640,11 @@ function _wrap_build()
         color_success=""
         color_reset=""
     fi
-    echo
+
     if [ $ret -eq 0 ] ; then
-        echo -n "${color_success}#### build completed successfully "
+        echo -n "${color_success}Build completed successfully "
     else
-        echo -n "${color_failed}#### failed to build some targets "
+        echo -n "${color_failed}#### FAILED to build some targets "
     fi
     if [ $hours -gt 0 ] ; then
         printf "(%02g:%02g:%02g (hh:mm:ss))" $hours $mins $secs
@@ -1678,7 +1653,7 @@ function _wrap_build()
     elif [ $secs -gt 0 ] ; then
         printf "(%s seconds)" $secs
     fi
-    echo " ####${color_reset}"
+    echo " ${color_reset}"
     echo
     return $ret
 }
@@ -1752,7 +1727,7 @@ for f in `test -d device && find -L device -maxdepth 4 -name 'vendorsetup.sh' 2>
          `test -d vendor && find -L vendor -maxdepth 4 -name 'vendorsetup.sh' 2> /dev/null | sort` \
          `test -d product && find -L product -maxdepth 4 -name 'vendorsetup.sh' 2> /dev/null | sort`
 do
-    echo "including $f"
+    # echo "including $f"
     . $f
 done
 unset f

@@ -899,9 +899,6 @@ def main(argv):
   new_args.append(args[1])
   add_img_to_target_files.main(new_args)
 
-  print("done.")
-
-
 if __name__ == '__main__':
   try:
     main(sys.argv[1:])

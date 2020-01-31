@@ -93,9 +93,6 @@ def main(argv):
     common.ZipClose(output_zip)
     shutil.rmtree(OPTIONS.input_tmp)
 
-  print("done.")
-
-
 if __name__ == '__main__':
   try:
     common.CloseInheritedPipes()

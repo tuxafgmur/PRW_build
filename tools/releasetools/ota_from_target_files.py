@@ -830,34 +830,14 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   security_patch = target_info.GetBuildProp("ro.build.version.security_patch")
   device = target_info.GetBuildProp("ro.product.device")
 
-  script.Print("=================================================");
-  script.Print("");
-  script.Print("                     ''                  ");
-  script.Print("               `````.oy.```````          ");
-  script.Print("            ```````:dMMh.````````        ");
-  script.Print("          ```````.sMMMMMy.`````````      ");
-  script.Print("        ```````./mMMMMMMMy.``````````    ");
-  script.Print("       ```````-yMMMMMMMMMMy.``````````   ");
-  script.Print("       `````./mMMNNNMMMMMMMy.``````````  ");
-  script.Print("      `````-ymmhMMMMMMhNMMMMs.`````````  ");
-  script.Print("      ````./M..```````.-odMMMs.````````  ");
-  script.Print("      ```````````````````./hMMs.```````  ");
-  script.Print("       ````````````````````./dMs.``````  ");
-  script.Print("        ``````````````````````.+ms`````  ");
-  script.Print("         ```````````````````````-yo```   ");
-  script.Print("          ``````````````````````...d`    ");
-  script.Print("            ````````````````````` `` .   ");
-  script.Print("               ````````````````          ");
-  script.Print("");
-  script.Print("                    ArrowOS");
-  script.Print("");
-  script.Print("=================================================");
+  script.Print("_________________________________________________");
+  script.Print(" ");
   script.Print(" Android version  : %s"%(android_version));
   script.Print(" Build id         : %s"%(build_id));
   script.Print(" Build date       : %s"%(build_date));
   script.Print(" Security patch   : %s"%(security_patch));
   script.Print(" Device           : %s"%(device));
-  script.Print("=================================================");
+  script.Print("_________________________________________________");
 
   is_system_as_root = target_info.get("system_root_image") == "true"
   if is_system_as_root and not common.system_as_system:
@@ -2009,7 +1989,7 @@ def main(argv):
       OPTIONS.info_dict = common.LoadInfoDict(input_zip)
 
   if OPTIONS.verbose:
-    print("--- target info ---")
+    print("--- target info")
     common.DumpInfoDict(OPTIONS.info_dict)
 
   # Load the source build dict if applicable.
@@ -2019,7 +1999,7 @@ def main(argv):
       OPTIONS.source_info_dict = common.LoadInfoDict(source_zip)
 
     if OPTIONS.verbose:
-      print("--- source info ---")
+      print("--- source info")
       common.DumpInfoDict(OPTIONS.source_info_dict)
 
   # Load OEM dicts if provided.
@@ -2047,18 +2027,17 @@ def main(argv):
         output_file=args[1],
         source_file=OPTIONS.incremental_source)
 
-    print("done.")
     return
 
   # Sanity check the loaded info dicts first.
   if OPTIONS.info_dict.get("no_recovery") == "true":
     raise common.ExternalError(
-        "--- target build has specified no recovery ---")
+        "--- target build has specified no recovery")
 
   # Non-A/B OTAs rely on /cache partition to store temporary files.
   cache_size = OPTIONS.info_dict.get("cache_size")
   if cache_size is None:
-    print("--- can't determine the cache partition size ---")
+    print("--- can't determine the cache partition size")
   OPTIONS.cache_size = cache_size
 
   if OPTIONS.extra_script is not None:
@@ -2111,9 +2090,6 @@ def main(argv):
         import target_files_diff
         target_files_diff.recursiveDiff(
             '', OPTIONS.source_tmp, OPTIONS.input_tmp, out_file)
-
-  print("done.")
-
 
 if __name__ == '__main__':
   try:
