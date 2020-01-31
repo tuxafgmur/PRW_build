@@ -86,9 +86,7 @@ PRODUCT_PACKAGES += \
     uiautomator \
     uncrypt \
     vndk_snapshot_package \
-    voip-common \
-    webview \
-    webview_zygote \
+    voip-common
 
 # Wifi modules
 PRODUCT_PACKAGES += \
