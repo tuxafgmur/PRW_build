@@ -2709,7 +2709,7 @@ endif # build_otatools_package
 # A zip of the directories that map to the target filesystem.
 # This zip can be used to create an OTA package or filesystem image
 # as a post-build step.
-#
+
 name := $(TARGET_PRODUCT)
 ifeq ($(TARGET_BUILD_TYPE),debug)
   name := $(name)_debug
@@ -2726,6 +2726,7 @@ $(BUILT_TARGET_FILES_PACKAGE): \
 # $(2): Location to copy it to
 # The "ls -A" is to prevent "acp s/* d" from failing if s is empty.
 define package_files-copy-root
+  $(TARGET_DEVICE_DIR)/custom_rom.sh $(TARGET_OUT)
   if [ -d "$(strip $(1))" -a "$$(ls -A $(1))" ]; then \
     mkdir -p $(2) && \
     $(ACP) -rd $(strip $(1))/* $(2); \
@@ -3147,7 +3148,6 @@ endif
 ifdef BUILT_VENDOR_MATRIX
 	$(hide) cp $(BUILT_VENDOR_MATRIX) $(zip_root)/META/vendor_matrix.xml
 endif
-
 	$(hide) PATH=$(foreach p,$(INTERNAL_USERIMAGES_BINARY_PATHS),$(p):)$$PATH MKBOOTIMG=$(MKBOOTIMG) \
 	    build/make/tools/releasetools/add_img_to_target_files -a -v -p $(HOST_OUT) $(zip_root)
 	@# Zip everything up, preserving symlinks and placing META/ files first to
