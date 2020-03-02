@@ -164,6 +164,11 @@ class EdifyGenerator(object):
            ");")
     self.script.append(self.WordWrap(cmd))
 
+  def DeleteRecovery(self, command):
+    self.script.append('delete("/system/recovery-from-boot.p");')
+    self.script.append('delete("/system/recovery-from-boot.bak");')
+    self.script.append('delete("/system/bin/install-recovery.sh");')
+
   def RunBackup(self, command, system_path):
     self.script.append(('run_program("/tmp/install/bin/backuptool.sh", "%s", "%s");' % (
         command, system_path)))

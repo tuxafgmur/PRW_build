@@ -913,6 +913,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     if is_system_as_root:
       script.fstab["/system"].mount_point = system_mount_point
     script.Mount("/system")
+    script.DeleteRecovery("")
     script.Print("BackupTools: Restoring backup")
     if is_system_as_root and common.system_as_system:
       script.RunBackup("restore", "/system/system")
