@@ -451,14 +451,13 @@ FINAL_PRODUCT_PROPERTIES := $(call uniq-pairs-by-first-component, \
 $(INSTALLED_PRODUCT_BUILD_PROP_TARGET):
 	@echo Target product buildinfo: $@
 	@mkdir -p $(dir $@)
-	$(hide) echo > $@
+	$(hide) echo "#" > $@
 ifdef BOARD_USES_PRODUCTIMAGE
 	$(hide) echo ro.product.build.date=`$(DATE_FROM_FILE)`>>$@
 	$(hide) echo ro.product.build.date.utc=`$(DATE_FROM_FILE) +%s`>>$@
 	$(hide) echo ro.product.build.fingerprint="$(BUILD_FINGERPRINT_FROM_FILE)">>$@
 endif  # BOARD_USES_PRODUCTIMAGE
-	$(hide) echo "#" >> $@; \
-	        echo "# ADDITIONAL PRODUCT PROPERTIES" >> $@; \
+	$(hide) echo "# Additional Product Properties" >> $@; \
 	        echo "#" >> $@;
 	$(hide) $(foreach line,$(FINAL_PRODUCT_PROPERTIES), \
 		echo "$(line)" >> $@;)
